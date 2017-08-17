@@ -26,13 +26,19 @@ public class ListActivity extends AppCompatActivity implements MaterialPaletteAd
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Inicializamos el array de colores
         initColors();
 
+        //Instanciamos el recyclerView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        
+        //A la recycler le seteamos un adapter enviando como parametros el array de colores y la Activity como listener
         recyclerView.setAdapter(new MaterialPaletteAdapter(colors, this));
-
+        
+        //Le seteamos el layout al recycler
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Agregamos el divisor entre cada uno de los items
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
                 ((LinearLayoutManager) recyclerView.getLayoutManager()).getOrientation()));
     }
@@ -59,6 +65,7 @@ public class ListActivity extends AppCompatActivity implements MaterialPaletteAd
         colors.add(new Color(getString(R.string.bluegrey), getResources().getString(R.string.md_blue_grey_500), getResources().getColor(R.color.md_blue_grey_500)));
     }
 
+    // Este metodo se ejecuta cuando en algun item hacemos click
     @Override
     public void onColorClick(View v, int position) {
         toolbar.setBackgroundColor(colors.get(position).getValue());
