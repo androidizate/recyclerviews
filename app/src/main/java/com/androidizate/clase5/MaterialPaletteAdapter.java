@@ -22,6 +22,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
         void onColorClick(View v, int position);
     }
 
+    // En este constructor recibimos la lista de colores y ademas quien sera el listener del onClick
     public MaterialPaletteAdapter(@NonNull List<Color> data,
                                   @NonNull RecyclerViewOnItemClickListener
                                           recyclerViewOnItemClickListener) {
@@ -29,12 +30,14 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
     }
 
+    // Aqui decidimos cual sera el layout de los items "R.layout.item"
     @Override
     public PaletteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
         return new PaletteViewHolder(row);
     }
 
+    // Cada vez que se asocia una vista a la recycler se ejecuta este metodo, por lo tanto debemos actualizar la informacion del item
     @Override
     public void onBindViewHolder(PaletteViewHolder holder, int position) {
         Color color = data.get(position);
@@ -62,6 +65,9 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
             circleView = itemView.findViewById(R.id.circleView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             subtitleTextView = itemView.findViewById(R.id.subtitleTextView);
+            
+            // Aqui definimos que PaletteViewHolder sera quien ejecuta el onClick en el item de la lista
+            // itemView -> ES EL ITEM COMPLETO
             itemView.setOnClickListener(this);
         }
 
@@ -77,6 +83,8 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
             return circleView;
         }
 
+        // Este OnClick es el que se ejecuta cuando hacemos click en un item de la lista y es el encargado de avisarle 
+        // al listener (la Activity en este caso) que hubo un click en el adapter.
         @Override
         public void onClick(View v) {
             recyclerViewOnItemClickListener.onColorClick(v, getAdapterPosition());
