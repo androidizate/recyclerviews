@@ -18,7 +18,7 @@ class MaterialPaletteAdapter(
 ) : RecyclerView.Adapter<PaletteViewHolder?>() {
 
     interface RecyclerViewOnItemClickListener {
-        fun onColorClick(v: View?, position: Int)
+        fun onColorClick(color: Color)
     }
 
     // Aqui decidimos cual sera el layout de los items "R.layout.item"
@@ -45,7 +45,7 @@ class MaterialPaletteAdapter(
             // Este OnClick es el que se ejecuta cuando hacemos click en un item de la lista y es el encargado de avisarle
             // al listener (la Activity en este caso) que hubo un click en el adapter.
             itemView.setOnClickListener {
-                recyclerViewOnItemClickListener.onColorClick(it, position)
+                recyclerViewOnItemClickListener.onColorClick(color)
             }
         }
     }

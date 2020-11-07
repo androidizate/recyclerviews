@@ -63,7 +63,7 @@ class ListActivity : AppCompatActivity(), RecyclerViewOnItemClickListener {
     }
 
     // Este metodo se ejecuta cuando en algun item hacemos click
-    override fun onColorClick(v: View?, position: Int) {
-        toolbar.setBackgroundColor(colors[position].value)
+    override fun onColorClick(color: Color) {
+        toolbar.setBackgroundColor(color.value)
     }
 }
