@@ -25,17 +25,19 @@ class ListActivity : AppCompatActivity(), RecyclerViewOnItemClickListener {
         initColors()
 
         //Instanciamos el recyclerView
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView) as RecyclerView
+        val recyclerView: RecyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
-        //A la recycler le seteamos un adapter enviando como parametros el array de colores y la Activity como listener
-        recyclerView.setAdapter(MaterialPaletteAdapter(colors, this))
-
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         //Le seteamos el layout al recycler
-        recyclerView.setLayoutManager(LinearLayoutManager(this))
+        recyclerView.layoutManager = linearLayoutManager
 
         //Agregamos el divisor entre cada uno de los items
-        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.getContext(),
-                (recyclerView.layoutManager as LinearLayoutManager).getOrientation()))
+        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context,
+                (recyclerView.layoutManager as LinearLayoutManager).orientation))
+
+        //A la recycler le seteamos un adapter enviando como parametros el array de colores y la Activity como listener
+        recyclerView.adapter = MaterialPaletteAdapter(colors, this)
     }
 
     private fun initColors() {

@@ -29,15 +29,14 @@ class MaterialPaletteAdapter(
 
     // Cada vez que se asocia una vista a la recycler se ejecuta este metodo, por lo tanto debemos actualizar la informacion del item
     override fun onBindViewHolder(holder: PaletteViewHolder, position: Int) {
-        holder.bind(position)
+        holder.bind(data[position])
     }
 
     override fun getItemCount(): Int = data.size
 
     inner class PaletteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(position: Int) {
-            val color = data[position]
+        fun bind(color: Color) {
             itemView.titleTextView.text = color.name
             itemView.subtitleTextView.text = color.hex.toString()
             val gradientDrawable = itemView.circleView.background as GradientDrawable
