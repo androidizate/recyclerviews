@@ -14,11 +14,12 @@ import kotlinx.android.synthetic.main.item.view.*
 // En este constructor recibimos la lista de colores y ademas quien sera el listener del onClick
 // On this constructor we receive the list of colors and who is going to be listening clicks
 class MaterialPaletteAdapter(
-    private val colorList: List<Color>,
-    private val recyclerViewOnItemClickListener: RecyclerViewOnItemClickListener
+    private val listener: ColorItemListener
 ) : RecyclerView.Adapter<PaletteViewHolder?>() {
 
-    interface RecyclerViewOnItemClickListener {
+    private val colorList: ArrayList<Color> = arrayListOf()
+
+    interface ColorItemListener {
         fun onColorClick(color: Color)
     }
 
@@ -37,19 +38,36 @@ class MaterialPaletteAdapter(
 
     override fun getItemCount(): Int = colorList.size
 
+    fun addItems(colorList: List<Color>) {
+        this.colorList.addAll(colorList)
+        notifyDataSetChanged()
+    }
+
+    fun deleteItem(colorName: String) {
+        this.colorList.removeIf { it.name == colorName }
+        notifyDataSetChanged()
+    }
+
     // This is the equivalent to the item.xml but using Kotlin code
     inner class PaletteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(color: Color) {
             itemView.titleTextView.text = color.name
-            itemView.subtitleTextView.text = color.hex.toString()
+            itemView.subtitleTextView.text = color.hex
             val gradientDrawable = itemView.circleView.background as GradientDrawable
             gradientDrawable.setColor(color.value)
 
-            // Este OnClick es el que se ejecuta cuando hacemos click en un item de la lista y es el encargado de avisarle
-            // al listener (la Activity en este caso) que hubo un click en el adapter.
+            /**
+             *
+             *   Este OnClick es el que se ejecuta cuando hacemos click en un item de la lista y es el encargado de avisarle
+             *   al listener (la Activity en este caso) que hubo un click en el adapter.
+             *
+             *   setOnClickListener is executed when we tap an item in the list (recyclerview) and is the one in charge
+             *   of telling the listener (In our example the Activity) that there was a click happened on the adapter
+             *
+             **/
             itemView.setOnClickListener {
-                recyclerViewOnItemClickListener.onColorClick(color)
+                listener.onColorClick(color)
             }
         }
     }
