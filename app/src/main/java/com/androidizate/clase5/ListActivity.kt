@@ -1,7 +1,6 @@
 package com.androidizate.clase5
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,22 +20,26 @@ class ListActivity : AppCompatActivity(), RecyclerViewOnItemClickListener {
         setContentView(R.layout.activity_list)
         setSupportActionBar(toolbar)
 
-        //Inicializamos el array de colores
+        // Inicializamos el array de colores
         initColors()
 
-        //Instanciamos el recyclerView
+        // Instanciamos el recyclerView
         val recyclerView: RecyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        //Le seteamos el layout al recycler
+        // Le seteamos el layout al recycler
         recyclerView.layoutManager = linearLayoutManager
 
-        //Agregamos el divisor entre cada uno de los items
-        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context,
-                (recyclerView.layoutManager as LinearLayoutManager).orientation))
+        // Agregamos el divisor entre cada uno de los items
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                recyclerView.context,
+                (recyclerView.layoutManager as LinearLayoutManager).orientation
+            )
+        )
 
-        //A la recycler le seteamos un adapter enviando como parametros el array de colores y la Activity como listener
+        // A la recycler le seteamos un adapter enviando como parametros el array de colores y la Activity como listener
         recyclerView.adapter = MaterialPaletteAdapter(colors, this)
     }
 
