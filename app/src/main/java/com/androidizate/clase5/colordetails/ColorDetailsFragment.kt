@@ -15,6 +15,9 @@ import com.androidizate.clase5.databinding.FragmentColorDetailsBinding
 import kotlinx.android.synthetic.main.fragment_color_details.*
 
 private const val ARG_COLOR = "color"
+private const val ARG_String = "string"
+private const val ARG_BOOLEAN = "boolean"
+private const val ARG_INT = "int"
 
 class ColorDetailsFragment : Fragment() {
     private lateinit var binding: FragmentColorDetailsBinding
@@ -54,10 +57,14 @@ class ColorDetailsFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(color: Color) =
+        fun newInstance(color: Color, boolean: Boolean, string: String, int: Int) =
             ColorDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_COLOR, color)
+                    putBoolean(ARG_BOOLEAN, boolean)
+                    putString(ARG_String, string)
+                    putInt(ARG_INT, int)
+
                 }
             }
     }
