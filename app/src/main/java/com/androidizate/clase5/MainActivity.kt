@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), ColorFragmentsListener {
     }
 
     override fun navigateToColorDetails(color: Color) {
-        navigateToFragment(ColorDetailsFragment.newInstance(color,true,"",0))
+        navigateToFragment(ColorDetailsFragment.newInstance(color,true,"",0), false)
 
     }
 
