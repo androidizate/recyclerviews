@@ -51,6 +51,7 @@ class ColorsFragment : Fragment() {
 
         val adapter = MaterialPaletteAdapter {
             listener.navigateToColorDetails(it)
+
         }
 
         // We set a MaterialPaletteAdapter to the recyclerView, sending as parameters the colors and Activity

@@ -9,6 +9,7 @@ import com.androidizate.clase5.databinding.ActivityListBinding
 
 interface ColorFragmentsListener {
     fun navigateToColorDetails(color: Color)
+    fun navigateBack()
 }
 
 class MainActivity : AppCompatActivity(), ColorFragmentsListener {
@@ -22,13 +23,34 @@ class MainActivity : AppCompatActivity(), ColorFragmentsListener {
         navigateToFragment(ColorsFragment())
     }
 
-    private fun navigateToFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(binding.container.id, fragment)
-            .commit()
+    private fun navigateToFragment(fragment: Fragment, replace: Boolean = true) {
+        if(replace) {
+
+
+            supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, fragment)
+                .commit()
+        }else{
+
+            supportFragmentManager.beginTransaction()
+                .add(binding.container.id, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun navigateToColorDetails(color: Color) {
-        navigateToFragment(ColorDetailsFragment.newInstance(color))
+
+        navigateToFragment(ColorDetailsFragment.newInstance(color),false)
+
+
     }
+
+    override fun navigateBack() {
+       supportFragmentManager.popBackStack()
+
+
+    }
+
+
 }
