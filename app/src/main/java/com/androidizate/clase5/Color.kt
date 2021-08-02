@@ -1,10 +1,11 @@
 package com.androidizate.clase5
 
-/**
- * Created by Andres Oller.
- */
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Color(
     val name: String,
     val hex: String,
     val value: Int
-)
+) : Parcelable

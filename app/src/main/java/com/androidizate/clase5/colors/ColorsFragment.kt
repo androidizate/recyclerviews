@@ -1,53 +1,66 @@
-package com.androidizate.clase5
+package com.androidizate.clase5.colors
 
+import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androidizate.clase5.MaterialPaletteAdapter.ColorItemListener
-import com.androidizate.clase5.databinding.ActivityListBinding
+import com.androidizate.clase5.Color
+import com.androidizate.clase5.ColorFragmentsListener
+import com.androidizate.clase5.R
+import com.androidizate.clase5.databinding.FragmentColorsBinding
 import java.util.*
 
-/**
- * Created by Andres Oller.
- */
-class ListActivity : AppCompatActivity(), ColorItemListener {
+class ColorsFragment : Fragment() {
 
-    private lateinit var binding: ActivityListBinding
+    private lateinit var binding: FragmentColorsBinding
     private val colors: MutableList<Color> = ArrayList()
+    private lateinit var listener: ColorFragmentsListener
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+    // We decide which is going to be our Layout
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentColorsBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        // Inicializamos el array de colores
+    // UI is ready to be used
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
         // We initialize color array
         initColors()
 
-        // Instanciamos el recyclerView
         // We instantiate the recyclerView
         val recyclerView = binding.recyclerView
 
-        // Agregamos el divisor entre cada uno de los items
         // We add the item divider decoration between each item
         recyclerView.addItemDecoration(
-            DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         )
 
-        val adapter = MaterialPaletteAdapter(this)
+        // val adapter = MaterialPaletteAdapter(this)
 
-        /* val adapter = MaterialPaletteAdapter(object : ColorItemListener {
-            override fun onColorClick(color: Color) {
-                binding.toolbar.setBackgroundColor(color.value)
-            }
-        }) */
+        val adapter = MaterialPaletteAdapter {
+            listener.navigateToColorDetails(it)
+        }
 
-        // A la recycler le seteamos un adapter enviando como parametros el array de colores y la Activity como listener
         // We set a MaterialPaletteAdapter to the recyclerView, sending as parameters the colors and Activity
         recyclerView.adapter = adapter
         adapter.addItems(colors)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as ColorFragmentsListener
     }
 
     private fun initColors() {
@@ -184,11 +197,5 @@ class ListActivity : AppCompatActivity(), ColorItemListener {
                 resources.getColor(R.color.md_blue_grey_500)
             )
         )
-    }
-
-    // Este metodo se ejecuta cuando en algun item hacemos click
-    // This function is executed when an Item is clicked
-    override fun onColorClick(color: Color) {
-        binding.toolbar.setBackgroundColor(color.value)
     }
 }

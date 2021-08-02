@@ -1,11 +1,13 @@
-package com.androidizate.clase5
+package com.androidizate.clase5.colors
 
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.androidizate.clase5.MaterialPaletteAdapter.PaletteViewHolder
+import com.androidizate.clase5.Color
+import com.androidizate.clase5.R
+import com.androidizate.clase5.colors.MaterialPaletteAdapter.PaletteViewHolder
 import kotlinx.android.synthetic.main.item.view.*
 
 /**
@@ -14,14 +16,10 @@ import kotlinx.android.synthetic.main.item.view.*
 // En este constructor recibimos la lista de colores y ademas quien sera el listener del onClick
 // On this constructor we receive the list of colors and who is going to be listening clicks
 class MaterialPaletteAdapter(
-    private val listener: ColorItemListener
+    private val listener: (Color) -> Unit
 ) : RecyclerView.Adapter<PaletteViewHolder?>() {
 
     private val colorList: ArrayList<Color> = arrayListOf()
-
-    interface ColorItemListener {
-        fun onColorClick(color: Color)
-    }
 
     // Aqui decidimos cual sera el layout de los items "R.layout.item"
     // Here we decide which is the item layout
@@ -67,7 +65,7 @@ class MaterialPaletteAdapter(
              *
              **/
             itemView.setOnClickListener {
-                listener.onColorClick(color)
+                listener(color)
             }
         }
     }

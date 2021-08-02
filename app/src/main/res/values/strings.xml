@@ -40,4 +40,6 @@
     <string name="md_brown_500">#795548</string>
     <string name="md_grey_500">#9E9E9E</string>
     <string name="md_blue_grey_500">#607D8B</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
