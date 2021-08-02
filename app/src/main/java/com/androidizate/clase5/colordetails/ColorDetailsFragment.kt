@@ -35,23 +35,17 @@ class ColorDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentColorDetailsBinding.inflate(layoutInflater)
         return binding.root
-
-
-
-
-
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener{
+        binding.button.setOnClickListener {
             listener.navigateBack()
         }
-
         Toast.makeText(requireContext(), color?.name, Toast.LENGTH_SHORT).show()
-
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as ColorFragmentsListener

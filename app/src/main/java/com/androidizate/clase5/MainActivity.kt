@@ -24,13 +24,11 @@ class MainActivity : AppCompatActivity(), ColorFragmentsListener {
     }
 
     private fun navigateToFragment(fragment: Fragment, replace: Boolean = true) {
-        if(replace) {
-
-
+        if (replace) {
             supportFragmentManager.beginTransaction()
                 .replace(binding.container.id, fragment)
                 .commit()
-        }else{
+        } else {
 
             supportFragmentManager.beginTransaction()
                 .add(binding.container.id, fragment)
@@ -41,16 +39,11 @@ class MainActivity : AppCompatActivity(), ColorFragmentsListener {
 
     override fun navigateToColorDetails(color: Color) {
 
-        navigateToFragment(ColorDetailsFragment.newInstance(color),false)
-
-
+        navigateToFragment(ColorDetailsFragment.newInstance(color), false)
     }
 
     override fun navigateBack() {
-       supportFragmentManager.popBackStack()
-
-
+        supportFragmentManager.popBackStack()
     }
-
 
 }
