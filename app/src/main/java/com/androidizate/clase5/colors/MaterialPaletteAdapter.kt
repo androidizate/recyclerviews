@@ -1,6 +1,7 @@
 package com.androidizate.clase5.colors
 
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class MaterialPaletteAdapter(
     // Aqui decidimos cual sera el layout de los items "R.layout.item"
     // Here we decide which is the item layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaletteViewHolder {
+        Log.d("MaterialPaletteAdapter", "onCreateViewHolder")
         val row = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
         return PaletteViewHolder(row)
     }
@@ -31,6 +33,7 @@ class MaterialPaletteAdapter(
     // Cada vez que se asocia una vista a la recycler se ejecuta este metodo, por lo tanto debemos actualizar la informacion del item
     // Everytime a view is attached to the reyclerview, this method is executed so we must update item info
     override fun onBindViewHolder(holder: PaletteViewHolder, position: Int) {
+        Log.d("MaterialPaletteAdapter", "onBindViewHolder: $position")
         holder.bind(colorList[position])
     }
 
@@ -50,6 +53,7 @@ class MaterialPaletteAdapter(
     inner class PaletteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(color: Color) {
+            Log.d("MaterialPaletteAdapter", "color: ${color.name}")
             itemView.titleTextView.text = color.name
             itemView.subtitleTextView.text = color.hex
             val gradientDrawable = itemView.circleView.background as GradientDrawable
